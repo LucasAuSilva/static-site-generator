@@ -18,13 +18,11 @@ class TextNode:
         self.url = url
 
     def __eq__(self, other):
-        if not self.text == other.text:
-            return False
-        if not self.text_type == other.text_type:
-            return False
-        if not self.url == other.url:
-            return False
-        return True
+        return (
+            self.text_type == other.text_type
+            and self.text == other.text
+            and self.url == other.url
+        )
 
     def __repr__(self):
         return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
@@ -42,7 +40,7 @@ def text_node_to_html_node(text_node):
             return LeafNode(text_node.text, "code")
         case TextType.LINK:
             props = { "href": text_node.url }
-            return LeafNode(text_node.text, "a", props)
+            return LeafNode(value=text_node.text, tag="a", props=props)
         case TextType.IMAGE:
             props = { "src": text_node.url, "alt": text_node.text }
             return LeafNode("", "img", props)

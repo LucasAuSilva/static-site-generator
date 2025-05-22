@@ -1,5 +1,6 @@
 import unittest
 
+from split import split_nodes_delimiter
 from textnode import TextNode, TextType, text_node_to_html_node
 
 class TestTextNode(unittest.TestCase):
@@ -41,6 +42,12 @@ class TestConvertTextNode(unittest.TestCase):
         self.assertEqual(html_node.tag, "code")
         self.assertEqual(html_node.value, "print(\"super secret code\")")
 
+    def test_a(self):
+        node = TextNode("very smart website", TextType.LINK, "https://google.com")
+        html_node = text_node_to_html_node(node)
+        self.assertEqual(html_node.tag, "a")
+        self.assertEqual(html_node.value, "very smart website")
+        self.assertEqual(html_node.props, { "href": "https://google.com" })
 
 if __name__ == '__main__':
     unittest.main()

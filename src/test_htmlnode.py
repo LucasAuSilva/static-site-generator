@@ -42,6 +42,14 @@ class TestLeafNode(unittest.TestCase):
 
         self.assertEqual(node.to_html(), "World")
 
+    def test_leaf_to_html_link(self):
+        props = { "href": "www.google.com", "target": "_blank" }
+        node = LeafNode("World", "a", props)
+
+        self.assertEqual(
+            node.to_html(),
+            "<a href=\"www.google.com\" target=\"_blank\">World</a>")
+
 class TestParentNode(unittest.TestCase):
     def test_to_html_with_leaf(self):
         node = ParentNode("p", [
